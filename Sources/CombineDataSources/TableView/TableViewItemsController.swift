@@ -138,6 +138,17 @@ CollectionType.Element.Element: Hashable {
         return sectionModel.footer
     }
     
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return dataSource?.tableView?(tableView, canEditRowAt: indexPath) ?? false
+    }
+    
+    public func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return dataSource?.tableView?(tableView, canMoveRowAt: indexPath) ?? false
+    }
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        dataSource?.tableView?(tableView, commit: editingStyle, forRowAt: indexPath)
+    }
     // MARK: - Fallback data source object
     override public func forwardingTarget(for aSelector: Selector!) -> Any? {
         return dataSource
